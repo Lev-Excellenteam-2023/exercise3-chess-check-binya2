@@ -118,6 +118,16 @@ class game_state:
         evaluated_piece = self.get_piece(row, col)
         return (evaluated_piece is not None) and (evaluated_piece != Player.EMPTY)
 
+    def get_white_king_location(self):
+        return self._white_king_location
+
+    def get_black_king_location(self):
+        return self._black_king_location
+
+    def is_valid_torn(self, row, col):
+        return ((self.whose_turn() and self.get_piece(row, col).is_player(Player.PLAYER_1)) or
+                (not self.whose_turn() and self.get_piece(row, col).is_player(Player.PLAYER_2)))
+
     def get_valid_moves(self, starting_square):
         '''
         remove pins from valid moves (unless the pinned piece move can get rid of a check and checks is empty

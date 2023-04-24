@@ -174,6 +174,16 @@ def main():
                             player_clicks = []
                             valid_moves = []
                         else:
+                            if game_state.is_valid_torn(player_clicks[0][0], player_clicks[0][1]):
+                                if game_state.get_piece(player_clicks[0][0], player_clicks[0][1]).get_name() == 'n':
+                                    knight_steps += 1
+                                if len(game_state.check_for_check(game_state.get_white_king_location(),
+                                                                  Player.PLAYER_1)[0]) == 1:
+                                    _is_check += 1
+                                if len(game_state.check_for_check(game_state.get_black_king_location(),
+                                                                  Player.PLAYER_2)[0]) == 1:
+                                    _is_check += 1
+                                valid = True
                             game_state.move_piece((player_clicks[0][0], player_clicks[0][1]),
                                                   (player_clicks[1][0], player_clicks[1][1]), False)
                             square_selected = ()
@@ -208,15 +218,21 @@ def main():
         if endgame == 0:
             game_over = True
             draw_text(screen, "Black wins.")
+            logger.info('The winner is: Black ')
         elif endgame == 1:
             game_over = True
             draw_text(screen, "White wins.")
+            logger.info('The winner is: White ')
         elif endgame == 2:
             game_over = True
             draw_text(screen, "Stalemate.")
+            logger.info('the winner is: Stalemate')
 
         clock.tick(MAX_FPS)
         py.display.flip()
+
+    logger.info("The general number of the knight's moves is: " + str(knight_steps))
+    logger.info("The final number of chess cases in the game is: " + str(_is_check))
 
     # elif human_player is 'w':
     #     ai = ai_engine.chess_ai()
