@@ -89,3 +89,14 @@ def Test_to_get_empty_or_full_locations_together():
     for move in expected_moves:
         assert move in all_moves
 
+def test_several_AI_system_calculations():
+    mock_game_state = Mock()
+    mock_game_state.get_piece = lambda row, col: Piece.Rook('r', row, col, Player.PLAYER_2)
+
+    mock_self_ai = Mock()
+    mock_self_ai.get_piece_value = lambda evaluated_piece, player: 50
+
+    evaluation_score = ai_engine.chess_ai.evaluate_board(mock_self_ai, mock_game_state, Player.PLAYER_1)
+
+    expected_evaluation_score = 50 * 8 * 8
+    assert expected_evaluation_score == evaluation_score
