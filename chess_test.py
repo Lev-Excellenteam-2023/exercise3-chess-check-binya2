@@ -100,3 +100,13 @@ def test_several_AI_system_calculations():
 
     expected_evaluation_score = 50 * 8 * 8
     assert expected_evaluation_score == evaluation_score
+
+# system test
+
+def test_tool_moving():
+    game = chess_engine.game_state()
+    game.move_piece((1, 2), (2, 2), False)
+    game.move_piece((6, 3), (4, 3), False)
+    game.move_piece((1, 1), (3, 1), False)
+    game.move_piece((7, 4), (3, 0), False)
+    assert game.checkmate_stalemate_checker() == 0
