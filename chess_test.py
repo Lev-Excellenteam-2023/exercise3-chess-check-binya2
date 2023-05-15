@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import Mock
 import Piece
 from enums import Player
@@ -74,3 +73,19 @@ def test_to_get_empty_locations_from_self_tools():
 
     valid_moves = Piece.Knight.get_valid_peaceful_moves(mock_self_knight, mock_game_state)
     assert len(valid_moves) == 0
+
+# integration tests
+def Test_to_get_empty_or_full_locations_together():
+    mock_game_state = Mock()
+    mock_game_state.get_valid_piece_takes = [(2, 3), (2, 5), (3, 2), (3, 6) ]
+    mock_game_state.get_valid_peaceful_moves = [(5, 2), (5, 6), (6, 3), (6, 5)]
+
+    mock_self_knight = Piece.Knight('n', 4, 4, Player.PLAYER_2)
+
+    all_moves = Piece.Knight.get_valid_piece_moves(mock_self_knight, mock_game_state)
+
+    assert len(all_moves)  == 8
+    expected_moves = [(2, 3), (2, 5), (3, 2), (3, 6), (5, 2), (5, 6), (6, 3), (6, 5)]
+    for move in expected_moves:
+        assert move in all_moves
+
