@@ -150,10 +150,10 @@ def main():
 
     if human_player is 'b':
         board = "\n---board---\n"
-        for i in range(8):
-            for j in range(8):
-                if game_state.is_valid_piece(i, j):
-                    board += game_state.get_piece(i, j).get_name()
+        for row in range(8):
+            for col in range(8):
+                if game_state.is_valid_piece(row, col):
+                    board += game_state.get_piece(row, col).get_name()
                     board += " "
                 else:
                     board += Player.EMPTY
@@ -166,10 +166,10 @@ def main():
         game_state.move_piece(ai_move[0], ai_move[1], True)
 
     board = "\n---board---\n"
-    for i in range(8):
-        for j in range(8):
-            if game_state.is_valid_piece(i, j):
-                board += game_state.get_piece(i, j).get_name()
+    for row in range(8):
+            for col in range(8):
+                if game_state.is_valid_piece(row, col):
+                    board += game_state.get_piece(row, col).get_name()
                 board += " "
             else:
                 board += Player.EMPTY
@@ -245,10 +245,10 @@ def main():
                     print(len(game_state.move_log))
         if valid:
             board = "\n---board---\n"
-            for i in range(8):
-                for j in range(8):
-                    if game_state.is_valid_piece(i, j):
-                        board += game_state.get_piece(i, j).get_name()
+           for row in range(8):
+            for col in range(8):
+                if game_state.is_valid_piece(row, col):
+                    board += game_state.get_piece(row, col).get_name()
                         board += " "
                     else:
                         board += Player.EMPTY
