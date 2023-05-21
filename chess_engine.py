@@ -124,7 +124,7 @@ class game_state:
     def get_black_king_location(self):
         return self._black_king_location
 
-    def is_valid_torn(self, row, col):
+    def is_valid_turn(self, row, col):
         return ((self.whose_turn() and self.get_piece(row, col).is_player(Player.PLAYER_1)) or
                 (not self.whose_turn() and self.get_piece(row, col).is_player(Player.PLAYER_2)))
 
