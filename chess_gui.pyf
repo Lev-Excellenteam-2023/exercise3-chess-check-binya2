@@ -102,6 +102,18 @@ def highlight_square(screen, game_state, valid_moves, square_selected):
             for move in valid_moves:
                 screen.blit(s, (move[1] * SQ_SIZE, move[0] * SQ_SIZE))
 
+def print_bord(game_state):
+    board = "\n---board---\n"
+    for i in range(8):
+        for j in range(8):
+           if game_state.is_valid_piece(row, col):
+                board += game_state.get_piece(row, col).get_name()
+                board += " "
+            else:
+                board += Player.EMPTY
+                board += " "
+        board += '\n'
+    logger.info(board)
 
 def main():
     # Check for the number of players and the color of the AI
@@ -149,33 +161,14 @@ def main():
         logger.info('black started')
 
     if human_player is 'b':
-        board = "\n---board---\n"
-        for row in range(8):
-            for col in range(8):
-                if game_state.is_valid_piece(row, col):
-                    board += game_state.get_piece(row, col).get_name()
-                    board += " "
-                else:
-                    board += Player.EMPTY
-                    board += " "
-            board += '\n'
-        logger.info(board)
+        print_bord(game_state)
+        
         ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
         if game_state.get_piece(ai_move[0][0], ai_move[0][1]).get_name() == 'n':
             knight_steps += 1
         game_state.move_piece(ai_move[0], ai_move[1], True)
 
-    board = "\n---board---\n"
-    for row in range(8):
-            for col in range(8):
-                if game_state.is_valid_piece(row, col):
-                    board += game_state.get_piece(row, col).get_name()
-                board += " "
-            else:
-                board += Player.EMPTY
-                board += " "
-        board += '\n'
-    logger.info(board)
+    print_bord(game_state)
     while running:
         for e in py.event.get():
             if e.type == py.QUIT:
@@ -244,17 +237,7 @@ def main():
                     game_state.undo_move()
                     print(len(game_state.move_log))
         if valid:
-            board = "\n---board---\n"
-           for row in range(8):
-            for col in range(8):
-                if game_state.is_valid_piece(row, col):
-                    board += game_state.get_piece(row, col).get_name()
-                        board += " "
-                    else:
-                        board += Player.EMPTY
-                        board += " "
-                board += '\n'
-            logger.info(board)
+            print_bord(game_state)
             valid = False
         draw_game_state(screen, game_state, valid_moves, square_selected)
 
