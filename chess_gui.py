@@ -162,12 +162,10 @@ def main():
 
     if human_player is 'b':
         print_bord(game_state)
-        
         ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
         if game_state.get_piece(ai_move[0][0], ai_move[0][1]).get_name() == 'n':
             knight_steps += 1
         game_state.move_piece(ai_move[0], ai_move[1], True)
-
     print_bord(game_state)
     while running:
         for e in py.event.get():
